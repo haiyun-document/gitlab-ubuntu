@@ -83,7 +83,7 @@ rm -rf /tmp/gitolite-admin
 #----------- Install GitLab --------------
 
 gem install charlock_holmes --version '0.6.8'
-gem install activerecord-mysql2-adapter'
+gem install activerecord-mysql2-adapter
 pip install pygments
 gem install bundler
 cd /home/gitlab
