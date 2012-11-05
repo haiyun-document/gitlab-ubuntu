@@ -19,6 +19,8 @@ REQUIRED_PACKAGES="git git-core gcc libxml2-dev libxslt-dev sqlite3 libsqlite3-d
 	libcurl4-openssl-dev libreadline6-dev libc6-dev libssl-dev make build-essential \
 	zlib1g-dev libicu-dev redis-server openssh-server python-dev python-pip libyaml-dev \
 	postfix ruby1.9.3"
+	
+CHUSR="sudo -H -u"
 
 #############################################################
 ##
@@ -52,9 +54,7 @@ usermod -a -G gitlab git
 
 #----------- Generate RSA key ------------
 
-sudo su gitlab
-ssh-keygen -q -N '' -t rsa -f /home/gitlab/.ssh/id_rsa
-exit
+$CHUSR gitlab ssh-keygen -q -N '' -t rsa -f /home/gitlab/.ssh/id_rsa
 
 cp /home/gitlab/.ssh/id_rsa.pub /home/git/gitlab.pub
 chmod 0444 /home/git/gitlab.pub
@@ -65,29 +65,21 @@ chmod 0444 /home/git/gitlab.pub
 
 cd /home/git
 
-sudo su git
-mkdir bin
-git clone -b gl-v304 https://github.com/gitlabhq/gitolite.git gitolite-src
-echo "PATH=\$PATH:/home/git/bin" >> /home/git/.profile
-echo "export PATH" >> /home/git/.profile
-gitolite-src/install -ln /home/git/bin
-PATH=/home/git/bin:$PATH
-gitolite setup -pk /home/git/gitlab.pub
-exit
+$CHUSR git mkdir bin
+$CHUSR git git clone -b gl-v304 https://github.com/gitlabhq/gitolite.git gitolite-src
+$CHUSR git echo "PATH=\$PATH:/home/git/bin" >> /home/git/.profile
+$CHUSR git echo "export PATH" >> /home/git/.profile
+$CHUSR git gitolite-src/install -ln /home/git/bin
+$CHUSR git PATH=/home/git/bin:$PATH
+$CHUSR git gitolite setup -pk /home/git/gitlab.pub
 
 chmod -R g+rwX /home/git/repositories/
 chown -R git:git /home/git/repositories/
 
 #----------- Test the Install -------------
 
-sudo su gitlab
-git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin
+$CHUSR gitlab git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin
 rm -rf /tmp/gitolite-admin
-
-
-
-
-
 
 
 
