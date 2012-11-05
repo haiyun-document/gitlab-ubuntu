@@ -67,11 +67,10 @@ cd /home/git
 
 $CHUSR git mkdir bin
 $CHUSR git git clone -b gl-v304 https://github.com/gitlabhq/gitolite.git gitolite-src
-$CHUSR git echo "PATH=\$PATH:/home/git/bin" >> /home/git/.profile
-$CHUSR git echo "export PATH" >> /home/git/.profile
+$CHUSR git sh -c 'echo "PATH=\$PATH:/home/git/bin" >> /home/git/.profile'
+$CHUSR git sh -c 'echo "export PATH" >> /home/git/.profile'
 $CHUSR git gitolite-src/install -ln /home/git/bin
-$CHUSR git PATH=/home/git/bin:$PATH
-$CHUSR git gitolite setup -pk /home/git/gitlab.pub
+$CHUSR git sh -c 'PATH=/home/git/bin:$PATH; gitolite setup -pk /home/git/gitlab.pub'
 
 chmod -R g+rwX /home/git/repositories/
 chown -R git:git /home/git/repositories/
