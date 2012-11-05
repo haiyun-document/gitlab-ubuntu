@@ -52,7 +52,9 @@ usermod -a -G gitlab git
 
 #----------- Generate RSA key ------------
 
-$CHUSR gitlab ssh-keygen -q -N '' -t rsa -f /home/gitlab/.ssh/id_rsa
+sudo su gitlab
+ssh-keygen -q -N '' -t rsa -f /home/gitlab/.ssh/id_rsa
+exit
 
 cp /home/gitlab/.ssh/id_rsa.pub /home/git/gitlab.pub
 chmod 0444 /home/git/gitlab.pub
