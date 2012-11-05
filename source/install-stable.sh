@@ -15,7 +15,7 @@
 ##
 ###########################################
 
-REQUIRED_PACKAGES="git git-core gcc libxml2-dev libxslt-dev sqlite3 sqlite3-dev \
+REQUIRED_PACKAGES="git git-core gcc libxml2-dev libxslt-dev sqlite3 libsqlite3-dev \
 	libcurl4-openssl-dev libreadline6-dev libc6-dev libssl-dev make build-essential \
 	zlib1g-dev libicu-dev redis-server openssh-server python-dev python-pip libyaml-dev \
 	postfix ruby1.9.3"
