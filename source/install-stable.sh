@@ -82,10 +82,9 @@ rm -rf /tmp/gitolite-admin
 
 #----------- Install GitLab --------------
 
-gem install charlock_holmes --version '0.6.8'
-gem install activerecord-mysql2-adapter
+gem install --conservative charlock_holmes --version '0.6.8'
 pip install pygments
-gem install bundler
+gem install --conservative bundler
 cd /home/gitlab
 
 $CHUSR gitlab git clone -b stable https://github.com/gitlabhq/gitlabhq.git gitlab
@@ -95,7 +94,7 @@ $CHUSR gitlab cp config/gitlab.yml.example config/gitlab.yml
 
 #--- Using SQLite
 
-$CHUSR gitlab cp config/database.yml.example config/database.yml
+$CHUSR gitlab cp config/database.yml.sqlite config/database.yml
 
 #--- Install gems for database 
 
