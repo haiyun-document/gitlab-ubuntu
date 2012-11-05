@@ -132,14 +132,13 @@ fi
 echo ""
 echo "Succeeded."
 echo "The installation of GitLab may be tested by running:"
-echo "sudo -u gitlab bundle exec rails s -e production"
+echo "sudo -H -u gitlab bundle exec rails s -e production"
+echo "from /home/gitlab/gitlab/ "
 echo "With <username>/<password>:"
 echo "admin@local.host/5iveL!fe"
-
-
-
-
-
+echo ""
+echo "NOTE: It will take a while to load the page the first time it is accessed, due to compiling times on java-script, jquery core, and css files."
+echo ""
 
 
 
