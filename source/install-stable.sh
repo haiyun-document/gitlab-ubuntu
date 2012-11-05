@@ -80,6 +80,71 @@ chown -R git:git /home/git/repositories/
 $CHUSR gitlab git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin
 rm -rf /tmp/gitolite-admin
 
+#----------- Install GitLab --------------
+
+gem install charlock_holmes --version '0.6.8'
+pip install pygments
+gem install bundler
+cd /home/gitlab
+
+$CHUSR gitlab git clone -b stable https://github.com/gitlabhq/gitlabhq.git gitlab
+cd gitlab
+
+$CHUSR gitlab cp config/gitlab.yml.example config/gitlab.yml
+
+#--- Using SQLite
+
+$CHUSR gitlab cp config/database.yml.example config/database.yml
+
+#--- Install gems for database 
+
+$CHUSR gitlab bundle install --without development test mysql postgres --deployment
+
+#--- Setup database
+
+$CHUSR gitlab bundle exec rake gitlab:app:setup RAILS_ENV=production
+
+#--- Setup hooks
+
+cp ./lib/hooks/post-receive /home/git/.gitolite/hooks/common/post-receive
+chown git:git /home/git/.gitolite/hooks/common/post-receive
+
+#--- Check status
+
+echo ""
+echo "CHECKING INSTALL STATUS..."
+echo ""
+
+$CHUSR gitlab bundle exec rake gitlab:app:status RAILS_ENV=production
+
+echo ""
+echo "WERE ALL ANSWERS ABOVE = YES ?"
+echo ""
+
+read ANSWER
+echo "Answer: $ANSWER"
+if [ "$ANSWER" != "yes" ];
+then
+	echo "Received answer other than 'yes'. Exiting"
+	exit 1
+fi
+
+echo ""
+echo "Succeeded."
+echo "The installation of GitLab may be tested by running:"
+echo "sudo -u gitlab bundle exec rails s -e production"
+echo "With <username>/<password>:"
+echo "admin@local.host/5iveL!fe"
+
+
+
+
+
+
+
+
+
+
 
 
 
