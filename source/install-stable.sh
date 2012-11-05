@@ -22,6 +22,8 @@ REQUIRED_PACKAGES="git git-core gcc libxml2-dev libxslt-dev sqlite3 libsqlite3-d
 	
 CHUSR="sudo -H -u"
 
+ETH_ADAPTER="eth1"
+
 #############################################################
 ##
 ##	MAIN
@@ -131,11 +133,17 @@ fi
 
 echo ""
 echo "Succeeded."
-echo "The installation of GitLab may be tested by running:"
-echo "sudo -H -u gitlab bundle exec rails s -e production"
-echo "from /home/gitlab/gitlab/ "
-echo "With <username>/<password>:"
-echo "admin@local.host/5iveL!fe"
+echo "Testing the installation..."
+
+#------------ Test GitLab ------------
+
+cd /home/gitlab/gitlab
+$CHUSR gitlab bundle exec rails s -e production
+
+echo ""
+IP_ADDR=$(ifconfig $ETH_ADAPTER | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+echo "Visit: $IP_ADDR:3000 from your browser, and login with:"
+echo "admin@local.host	5iveL!fe"
 echo ""
 echo "NOTE: It will take a while to load the page the first time it is accessed, due to compiling times on java-script, jquery core, and css files."
 echo ""
