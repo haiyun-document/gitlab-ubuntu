@@ -7,7 +7,7 @@ _gitlab-ubuntu_ aims to first provide a functional and featured install script t
 
 ## Preinstalled Virtual Images
 
-* GitLab 3.03 on Ubuntu Server 12.04.1 LTS x86_64 
+* [GitLab 3.03 on Ubuntu Server 12.04.1 LTS x86_64](https://github.com/downloads/mhathcock/gitlab-ubuntu/gitlab-3.0-stable.ova)
 
 ## Source
 
